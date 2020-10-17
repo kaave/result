@@ -1,0 +1,26 @@
+{
+    "extends": ["config:base"],
+    "timezone": "Asia/Tokyo",
+    "labels": ["renovate"],
+    "minor": { "groupName": "all dependencies" },
+    "patch": { "automerge": true },
+    "lockFileMaintenance": { "enabled": true },
+    "packageRules": [
+        {
+            "packagePatterns": ["^typescript"],
+            "enabled": false
+        },
+        {
+            "groupName": "ESLint packages",
+            "packagePatterns": ["^eslint", "^@typescript-eslint"]
+        },
+        {
+            "groupName": "stylelint packages",
+            "packagePatterns": ["^stylelint"]
+        },
+        {
+            "groupName": "jest packages",
+            "packagePatterns": ["jest$"]
+        }
+    ]
+}

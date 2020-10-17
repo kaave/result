@@ -1,0 +1,21 @@
+version: 2
+
+jobs:
+  build:
+    working_directory: ~/kaave/playground-typescript
+    docker:
+      - image: 'circleci/node:12'
+    branches:
+      only:
+        - master
+    steps:
+      - checkout
+      - run:
+          name: yarn install
+          command: yarn install
+      - run:
+          name: lint
+          command: yarn lint
+      - run:
+          name: build
+          command: yarn build
