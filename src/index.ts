@@ -6,7 +6,7 @@ export type OkValue =
   | { [K in string | number | symbol]?: OkValue }
   | undefined
   | null;
-export type ErrValue = ValidUnion | ReadonlyArray<ErrValue> | { [K in string | number | symbol]?: ErrValue };
+export type ErrValue = ValidUnion | Error | ReadonlyArray<ErrValue> | { [K in string | number | symbol]?: ErrValue };
 
 export type Ok<T extends OkValue> = { readonly _type: 'ok'; readonly _value: T };
 export type Err<E extends ErrValue> = { readonly _type: 'err'; readonly _error: E };

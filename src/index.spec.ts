@@ -34,6 +34,7 @@ async function example() {
   const results = await Promise.all([
     await resultGenerator({ ok: 42, err: { errorCode: 404, message: 'Not found' } }),
     await resultGenerator({ ok: 1, err: { errorCode: 500, message: 'Server error' } }),
+    await resultGenerator({ ok: 2, err: new Error('Server error') }),
   ]);
 
   if (isEveryOk(results)) {
@@ -46,7 +47,7 @@ async function example() {
   }
 
   // ここから下はひとつひとつ見ていってエラー処理
-  const [resultFortyTwo, resultOne] = results;
+  const [resultFortyTwo, resultOne, resultTwo] = results;
   if (isErr(resultFortyTwo)) {
     // エラー処理
     console.error(resultFortyTwo._error);
@@ -55,6 +56,11 @@ async function example() {
   if (isErr(resultOne)) {
     // エラー処理
     console.error(resultOne._error);
+  }
+
+  if (isErr(resultTwo)) {
+    // エラー処理
+    console.error(resultTwo._error.message);
   }
 }
 
