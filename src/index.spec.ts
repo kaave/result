@@ -50,17 +50,20 @@ async function example() {
   const [resultFortyTwo, resultOne, resultTwo] = results;
   if (isErr(resultFortyTwo)) {
     // エラー処理
-    console.error(resultFortyTwo._error);
+    const e = unwrapErr(resultFortyTwo);
+    console.error(e);
   }
 
   if (isErr(resultOne)) {
     // エラー処理
-    console.error(resultOne._error);
+    const e = unwrapErr(resultOne);
+    console.error(e);
   }
 
   if (isErr(resultTwo)) {
     // エラー処理
-    console.error(resultTwo._error.message);
+    const e = unwrapErr(resultTwo);
+    console.error(e);
   }
 }
 

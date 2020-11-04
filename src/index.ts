@@ -18,13 +18,11 @@ export type Err<E extends ErrValue> = { readonly _type: 'err'; readonly _error: 
 export type Result<T, E extends ErrValue> = Ok<T> | Err<E>;
 
 // eslint-disable-next-line no-use-before-define
-export type ExtractOk<T extends Result<O, E>, O extends OkValue, E extends ErrValue> = T extends Ok<infer P>
-  ? Ok<P>
-  : never;
+export type ExtractOk<T extends Result<OkValue, ErrValue>> = T extends Ok<infer P> ? Ok<P> : never;
 // eslint-disable-next-line no-use-before-define
-export type ExtractErr<T extends Result<O, E>, O extends OkValue, E extends ErrValue> = T extends Err<infer P>
-  ? Err<P>
-  : never;
+export type ExtractErr<T extends Result<OkValue, ErrValue>> = T extends Err<infer P> ? Err<P> : never;
+export type UnwrapOk<T extends Result<OkValue, ErrValue>> = T extends Ok<infer P> ? P : never;
+export type UnwrapErr<T extends Result<OkValue, ErrValue>> = T extends Err<infer P> ? P : never;
 export type ExtractOks<T extends ReadonlyArray<Result<OkValue, ErrValue>>> = {
   [K in keyof T]: T[K] extends Result<infer P, ErrValue> ? (P extends OkValue ? Ok<P> : never) : never;
 };
@@ -38,8 +36,7 @@ export const err = <T extends ErrValue>(error: T): Err<T> => ({ _type: 'err', _e
 export const isOk = <T extends OkValue, E extends ErrValue>(r: Result<T, E>): r is Ok<T> => r._type === 'ok';
 export const isErr = <T extends OkValue, E extends ErrValue>(r: Result<T, E>): r is Err<E> => !isOk(r);
 // eslint-disable-next-line no-use-before-define
-export const isEveryOk = <T extends Result<O, E>[], O extends OkValue, E extends ErrValue>(t: T): t is ExtractOks<T> =>
-  t.every((r) => isOk(r));
+export const isEveryOk = <T extends Result<OkValue, ErrValue>[]>(t: T): t is ExtractOks<T> => t.every((r) => isOk(r));
 
 /**
  * @FIXME わからん
