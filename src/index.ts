@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-type ValidUnion = string | number | boolean | symbol | BigInt | ((...args: any[]) => any);
+type ValidUnion = string | number | boolean | Date | symbol | BigInt | ((...args: any[]) => any);
 export type OkValue =
   | ValidUnion
   | ReadonlyArray<OkValue>

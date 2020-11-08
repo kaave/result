@@ -1,4 +1,4 @@
-declare type ValidUnion = string | number | boolean | symbol | BigInt | ((...args: any[]) => any);
+declare type ValidUnion = string | number | boolean | Date | symbol | BigInt | ((...args: any[]) => any);
 export declare type OkValue = ValidUnion | ReadonlyArray<OkValue> | {
     [K in string | number | symbol]?: OkValue;
 } | undefined | null;
